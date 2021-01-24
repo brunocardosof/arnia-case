@@ -1,6 +1,5 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import { useEffect, useState } from 'react';
-import InfiniteScroll from 'react-infinite-scroll-component';
 import Loader from 'react-loader-spinner';
 import { FaRandom } from 'react-icons/fa'
 
@@ -8,7 +7,6 @@ import './App.css';
 import { Character } from './interfaces/Character';
 import { api } from './services/api';
 import { Episode } from './interfaces/Episode';
-import axios from 'axios';
 
 
 function App() {
@@ -36,44 +34,30 @@ function App() {
     bb: "Breaking Bad",
   }
   const [episode, setEpisode] = useState<Episode[]>([]);
-  const handlesetEpisode = async (episodes: Episode[]) => {
-    await setEpisode(() => episodes);
-  }
   const [episodeByChracter, setEpisodeByChracter] = useState<Episode[]>([]);
 
   useEffect(() => {
     const epis = async () => {
-      const epis = await fetchEpisodesAndUsers();
+      const epis = await fetchEpisodesAndRandomCharacters();
     }
     epis()
   }, [])
 
-  const fetchEpisodesAndUsers = async () => {
+  const fetchEpisodesAndRandomCharacters = async () => {
     const allEpisode = await getAllEpisodes();
     const character = await showRandomCharacter();
-    await handleEpisodeByChracter(allEpisode, character);
+    await handleEpisodeByCharacter(allEpisode, character);
   }
-
-  // const renderEpisodesList = ():JSX.Element => {
-  //   return (
-  //     <div className="cardEpisode">
-  //     <div className="cardEpisodeBody">
-  //       {
-  //         episodes && episodes.map((item) => {
-  //           <h1>{item.title}</h1>
-  //         })
-  //       }
-  //       <h1>!!!!!!!!!!!!!!!!!!</h1>
-  //     </div>
-  //   </div>
-  //   )
-  // }
+  const fetchEpisodesAndCharacters = async () => {
+    const allEpisode = await getAllEpisodes();
+    const character = await showCharacterByName();
+    await handleEpisodeByCharacter(allEpisode, character);
+  }
 
   const removeSpaces = (string: string) => {
     let stringWithoutSpace = string.trim().replace(/ /g, "+");
     return stringWithoutSpace;
   }
-
   const getAllEpisodes = async () => {
     return await api(`episodes?series=Breaking+Bad`)
       .then((response) => {
@@ -82,7 +66,24 @@ function App() {
       })
 
   }
-
+  const showCharacterByName = async () => {
+    setLoading(true);
+    return await api(`characters?name=${search ? removeSpaces(search) : defaultCharacter.name}`)
+      .then(async (char) => {
+        setLoading(false);
+        if (!char.data.length) {
+          alert(`${search} não existe!`);
+          return false;
+        }
+        setCharacter(char.data[0]);
+        return char.data[0];
+      })
+      .catch((error) => {
+        console.log(">>>>>>>>>>>>>>>>>>>>>error")
+        console.log(error)
+        setLoading(false);
+      })
+  }
   const showRandomCharacter = async () => {
     setLoading(true);
     return await api(`character/random`)
@@ -101,7 +102,7 @@ function App() {
       })
   }
 
-  const handleEpisodeByChracter = async (episode: Episode[], character: Character) => {
+  const handleEpisodeByCharacter = async (episode: Episode[], character: Character) => {
     let array = []
     for (let i = 0; i < episode.length; i++) {
       for (let j = 0; j < episode[i].characters.length; j++) {
@@ -116,27 +117,10 @@ function App() {
     }
     console.log("array")
     console.log(array)
-    const arraySorte = array.sort(function(a, b) {
+    const arraySorte = array.sort(function (a, b) {
       return a.season - b.season;
     });
     setEpisodeByChracter(arraySorte)
-  }
-  const showCharacterByName = async () => {
-    setLoading(true);
-    return await api(`characters?name=${search ? removeSpaces(search) : defaultCharacter.name}`)
-      .then(async (char) => {
-        setLoading(false);
-        if (!char.data) {
-          await setCharacter(() => defaultCharacter);
-          return false;
-        }
-        setCharacter(char.data[0]);
-        return char.data[0];
-      })
-      .catch((error) => {
-        setLoading(false);
-        console.log(error)
-      })
   }
   return (
     <div className="container">
@@ -151,7 +135,7 @@ function App() {
           />
           <button
             className="cardCharButtonSeach"
-            onClick={() => { showCharacterByName() }}
+            onClick={() => { fetchEpisodesAndCharacters() }}
           >
             Procurar
           </button>
@@ -162,11 +146,11 @@ function App() {
               <>
                 <img className="charAvatar" src={character.img} alt="Imagem do Personagem" />
                 <div className="charInformation">
-                  <FaRandom className="cardCharRandomIcon" onClick={() => fetchEpisodesAndUsers()} />
+                  <FaRandom className="cardCharRandomIcon" onClick={() => fetchEpisodesAndRandomCharacters()} />
                   <p>
                     <strong className="charInformationTextTitle">Apelido:</strong>
                     {character.nickname}
-                  </p>
+                  </p><b/>
                   <p>
                     <strong className="charInformationTextTitle">Status:</strong>
                     {character.status}
@@ -187,17 +171,20 @@ function App() {
 
       <div className="cardEpisode">
         {
-          episodeByChracter.map((item) => (
-            <ul key={item.title}>
-              <li>
-                <div className="cardEpisodeList">
-                  <strong>Título:</strong> {item.title}<br/>
-                  <strong>Temporada:</strong> {item.season}<br/>
-                  <strong>Data de Lançamento:</strong> {item.air_date}
-                </div>
-              </li>
-            </ul>
-          ))
+          episodeByChracter.length ?
+            episodeByChracter.map((item) => (
+              <ul key={item.title}>
+                <li>
+                  <div className="cardEpisodeList">
+                    <strong>Título:</strong> {item.title}<br />
+                    <strong>Temporada:</strong> {item.season}<br />
+                    <strong>Data de Lançamento:</strong> {item.air_date}
+                  </div>
+                </li>
+              </ul>
+            ))
+            : <h3>{character.nickname} não particicipou do Breaking Bad <br /><strong>ou</strong> é um bug da API que alguns personagens da série não aparecem!!!!</h3>
+
         }
       </div>
 
