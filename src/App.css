@@ -1,6 +1,6 @@
 :root {
   --main-color: #004c00;
-  --default-transition: 250ms
+  --default-transition: 250ms;
 }
 * {
   margin: 0;
@@ -14,17 +14,19 @@ body {
 }
 
 .container {
-  height: 100vh;
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
 }
-.cardChar {
+.card {
   border: 3px solid var(--main-color);
   padding: 15px 80px 80px 80px;
+  margin-right: 15px;
+  max-height: 570px;
+  height: 570px;
 }
-.cardChar:hover {
+.card:hover {
   transition: var(--default-transition);
   border: 6px solid var(--main-color);
   background-color: whitesmoke;
@@ -41,6 +43,7 @@ body {
   border-left: 3px solid var(--main-color);
   border-bottom-left-radius: 20px;
   border-top-left-radius: 20px;
+  padding-left: 20px;
   height: 35px;
   width: 300px;
   outline: none;
@@ -59,7 +62,7 @@ body {
   background-color: var(--main-color);
   color: white;
 }
-.cardCharButtonSeach:hover{
+.cardCharButtonSeach:hover {
   transition: var(--default-transition);
   background-color: white;
   color: var(--main-color);
@@ -73,16 +76,16 @@ body {
   height: 25rem;
   width: 25rem;
 }
-.cardCharRandomIcon{
+.cardCharRandomIcon {
   font-size: 26px;
   margin-bottom: 20px;
   cursor: pointer;
 }
-.cardCharRandomIcon:hover{
+.cardCharRandomIcon:hover {
   transition: var(--default-transition);
   background-color: var(--default-color);
 }
-.charInformationTextTitle{
+.charInformationTextTitle {
   font-size: 20px;
   padding-right: 10px;
 }
@@ -93,16 +96,37 @@ body {
   align-items: center;
   padding-left: 30px;
 }
-.cardCharLoader{
+.cardCharLoader {
   display: absolute;
   justify-content: center;
   align-items: center;
 }
-
+.cardEpisode {
+  border: 3px solid var(--main-color);
+  padding: 15px 60px 60px 60px;
+  margin-left: 15px;
+  overflow-y: auto;
+  max-height: 570px;
+}
+.cardEpisode:hover {
+  transition: var(--default-transition);
+  border: 6px solid var(--main-color);
+  background-color: whitesmoke;
+}
 
 @media (max-width: 480px) {
-  .cardChar {
+  .container {
+    flex-direction: column;
+    justify-content: stretch;
+    align-items: stretch;
+  }
+  .card {
     padding: 15px 10px 10px 10px;
+    margin-top: 15px;
+    margin-bottom: 25px;
+    margin-left: 5px;
+    max-height: 600px;
+    height: 600px;
   }
   .cardCharHeader {
     flex-direction: column;
@@ -112,7 +136,7 @@ body {
     height: 25rem;
     width: 20rem;
   }
-  .cardCharRandomIcon{
+  .cardCharRandomIcon {
     margin-top: 10px;
   }
   .cardCharSearchInput {
@@ -123,29 +147,51 @@ body {
     height: 35px;
     width: 80px;
   }
+  .cardEpisode {
+    border: 3px solid var(--main-color);
+    overflow-y: auto;    
+    margin-bottom: 25px;
+    margin-top: 15px;
+    max-height: 600px;
+    height: 600px;
+    width: 330px;
+  }
+  .cardEpisodeList {
+    padding: 15px 80px 15px 80px;
+  }
+}
+
+.cardEpisodeList {
+  border: 3px solid var(--main-color);
+  margin-bottom: 15px;
+  padding: 15px;
+}
+
+ul {
+  list-style-type: none;
 }
 
 ::-webkit-input-placeholder {
   /* Chrome/Opera/Safari */
   font-size: 16px;
   text-align: center;
-  padding-left: 10px;
+  padding-left: 5px;
 }
 ::-moz-placeholder {
   /* Firefox 19+ */
   font-size: 16px;
   text-align: center;
-  padding-left: 10px;
+  padding-left: 5px;
 }
 :-ms-input-placeholder {
-  /* IE 10+ */
+  /* IE 5+ */
   font-size: 16px;
   text-align: center;
-  padding-left: 10px;
+  padding-left: 5px;
 }
 :-moz-placeholder {
   /* Firefox 18- */
   font-size: 16px;
   text-align: center;
-  padding-left: 10px;
+  padding-left: 5px;
 }
