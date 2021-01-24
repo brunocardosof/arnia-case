@@ -76,7 +76,7 @@ function App() {
           <input
             className="cardCharSearchInput"
             type="text"
-            placeholder="Digite o nome de um personagem"
+            placeholder="Procurar personagem"
             onChange={(e) => setSearch(e.target.value)}
             onKeyDown={showCharacterByName}
           />
@@ -91,8 +91,14 @@ function App() {
           <img className="charAvatar" src={character.img} alt="Imagem do Personagem" />
           <div className="charInformation">
             <FaRandom className="cardCharRandomIcon" onClick={() => showRandomCharacter()} />
-            <p>Apelido: {character.nickname}</p>
-            <p>Status: {character.status}</p>
+            <p>
+              <strong className="charInformationTextTitle">Apelido:</strong> 
+              {character.nickname}
+            </p>
+            <p>
+              <strong className="charInformationTextTitle">Status:</strong> 
+              {character.status}
+            </p>
             <Loader
               type="ThreeDots"
               color="#004c00"
