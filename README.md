@@ -5,7 +5,7 @@
 
 https://create-react-app-eta-lovat.vercel.app/
 
-## Para abrir o projeto em desenvolvimento, rodar na pasta raiz os comando:
+## Para abrir o projeto em desenvolvimento, rodar na pasta raiz os comandos:
 
 ```shell
 $ npm i
