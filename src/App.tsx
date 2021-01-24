@@ -3,14 +3,14 @@ import { useEffect, useState } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import Loader from 'react-loader-spinner';
 import { FaRandom } from 'react-icons/fa'
- 
+
 import './App.css';
 import { Character } from './interfaces/Character';
 import { api } from './services/api';
 
 
 function App() {
-  const defaultCharacter:Character = {
+  const defaultCharacter: Character = {
     id: 1,
     name: "Walter White",
     birthday: "09-07-1958",
@@ -18,22 +18,25 @@ function App() {
     img: "https://images.amcnetworks.com/amc.com/wp-content/uploads/2015/04/cast_bb_700x1000_walter-white-lg.jpg",
     status: "Presumed dead",
     nickname: "Heisenberg",
-    appearance: [1,2,3,4,5],
+    appearance: [1, 2, 3, 4, 5],
     portrayed: "Bryan Cranston",
     category: "Breaking Bad",
 
   }
   const [character, setCharacter] = useState<Character>({} as Character);
   const [search, setSearch] = useState("");
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-      showRandomCharacter();
-  },[])
+    showRandomCharacter();
+  }, [])
 
-  const showRandomCharacter = async() => {
+  const showRandomCharacter = async () => {
+    setLoading(true);
     return await api(`character/random`)
       .then((char) => {
-        if(!char.data) {
+        setLoading(false);
+        if (!char.data) {
           setCharacter(defaultCharacter);
           return false;
         }
@@ -41,20 +44,24 @@ function App() {
       })
       .catch((error) => {
         console.log(error)
+        setLoading(false);
       })
-    }      
-  
-  const showCharacterByName = async(event?: any) => {    
+  }
+
+  const showCharacterByName = async (event?: any) => {
     if (event.key === 'Enter' || event === "Button") {
+      setLoading(true);
       return await api(`characters?name=${search}`)
         .then((char) => {
-          if(!char.data) {
+          setLoading(false);
+          if (!char.data) {
             setCharacter(defaultCharacter);
             return false;
           }
           setCharacter(char.data[0])
         })
         .catch((error) => {
+          setLoading(false);
           console.log(error)
         })
     }
@@ -66,29 +73,37 @@ function App() {
 
       <div className="cardChar">
         <div className="cardCharSearch">
-          <input 
-            className="cardCharSearchInput" 
-            type="text" 
+          <input
+            className="cardCharSearchInput"
+            type="text"
             placeholder="Digite o nome de um personagem"
             onChange={(e) => setSearch(e.target.value)}
             onKeyDown={showCharacterByName}
           />
-          <button 
+          <button
             className="cardCharButtonSeach"
-            onClick={() => {showCharacterByName("Button")}}
-            > 
-            Procurar 
+            onClick={() => { showCharacterByName("Button") }}
+          >
+            Procurar
           </button>
         </div>
         <div className="cardCharHeader">
-          <img className="charAvatar" src={character.img} alt="Imagem do Personagem"/>
+          <img className="charAvatar" src={character.img} alt="Imagem do Personagem" />
           <div className="charInformation">
-            <FaRandom className="cardCharRandomIcon" onClick={() => showRandomCharacter()}/>
+            <FaRandom className="cardCharRandomIcon" onClick={() => showRandomCharacter()} />
             <p>Apelido: {character.nickname}</p>
             <p>Status: {character.status}</p>
+            <Loader
+              type="ThreeDots"
+              color="#004c00"
+              width={100}
+              visible={loading}
+            />
           </div>
         </div>
-        <div className="cardCharBody">
+      </div>
+
+      <div className="cardEpisodios">
           {/* <InfiniteScroll
             dataLength={comments.length}
             next={listCommentsByTweet}
@@ -105,16 +120,11 @@ function App() {
               </div>
             }>
           </InfiniteScroll> */}
-          
-        </div>
       </div>
-      
-      <div className="cardEpisodios">
-      </div>
-    
+
     </div>
   );
-  
+
 }
 
 export default App;

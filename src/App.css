@@ -19,10 +19,14 @@ body {
   justify-content: center;
   align-items: center;
 }
-
 .cardChar {
   border: 3px solid var(--main-color);
   padding: 15px 80px 80px 80px;
+}
+.cardChar:hover {
+  transition: 250ms;
+  border: 6px solid var(--main-color);
+  background-color: whitesmoke;
 }
 .cardCharSearch {
   display: flex;
@@ -75,4 +79,9 @@ body {
   justify-content: center;
   align-items: center;
   padding-left: 30px;
+}
+.cardCharLoader{
+  display: absolute;
+  justify-content: center;
+  align-items: center;
 }
