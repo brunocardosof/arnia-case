@@ -19,7 +19,7 @@ body {
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  margin-top: 40px;
+  margin: 40px 15px 0px 15px;
 }
 .card {
   border: 3px solid var(--main-color);
@@ -121,7 +121,8 @@ body {
   .container {
     flex-direction: column;
     justify-content: stretch;
-    align-items: stretch;
+    align-items: stretch;    
+    margin: 0px;
   }
   .card {
     padding: 15px 10px 10px 10px;
