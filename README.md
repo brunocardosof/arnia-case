@@ -5,6 +5,10 @@
 
 https://create-react-app-eta-lovat.vercel.app/
 
+## OBS:
+
+Se fizer alguma pesquisa em branco, retornará um personagem default que é o Walter White!! 😄😄
+
 ## Para abrir o projeto em desenvolvimento, rodar na pasta raiz os comandos:
 
 ```shell
