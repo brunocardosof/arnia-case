@@ -1,3 +1,7 @@
+:root {
+  --main-color: #004c00;
+  --default-transition: 250ms
+}
 * {
   margin: 0;
   padding: 0;
@@ -11,49 +15,76 @@ body {
 
 .container {
   height: 100vh;
-  display:flex;
+  display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
 }
-
 .cardChar {
-  border: 2px solid #000;
+  border: 3px solid var(--main-color);
   padding: 15px 80px 80px 80px;
 }
-.cardCharSearch{
-  display:flex;
+.cardChar:hover {
+  transition: var(--default-transition);
+  border: 6px solid var(--main-color);
+  background-color: whitesmoke;
+}
+.cardCharSearch {
+  display: flex;
   justify-content: center;
   align-items: center;
 }
-.cardCharSearchInput{
-  border-left: 3px solid #000;
-  border-top: 3px solid #000;
-  border-bottom: 3px solid #000;
+.cardCharSearchInput {
+  border-top: 3px solid var(--main-color);
+  border-right: 3px solid var(--main-color);
+  border-bottom: 3px solid var(--main-color);
+  border-left: 3px solid var(--main-color);
   border-bottom-left-radius: 20px;
   border-top-left-radius: 20px;
   height: 35px;
   width: 300px;
   outline: none;
 }
-.cardCharButtonSeach{
-  border-right: 3px solid #000;
-  border-top: 3px solid #000;
-  border-bottom: 3px solid #000;
+.cardCharButtonSeach {
+  border-top: 3px solid var(--main-color);
+  border-right: 3px solid var(--main-color);
+  border-bottom: 3px solid var(--main-color);
+  border-left: 3px solid var(--main-color);
   border-bottom-right-radius: 20px;
   border-top-right-radius: 20px;
   height: 35px;
   width: 100px;
   outline: none;
   cursor: pointer;
+  background-color: var(--main-color);
+  color: white;
+}
+.cardCharButtonSeach:hover{
+  transition: var(--default-transition);
+  background-color: white;
+  color: var(--main-color);
 }
 .cardCharHeader {
-  display:flex;
+  display: flex;
   flex-direction: row;
   padding-top: 15px;
 }
 .charAvatar {
   height: 25rem;
+  width: 25rem;
+}
+.cardCharRandomIcon{
+  font-size: 26px;
+  margin-bottom: 20px;
+  cursor: pointer;
+}
+.cardCharRandomIcon:hover{
+  transition: var(--default-transition);
+  background-color: var(--default-color);
+}
+.charInformationTextTitle{
+  font-size: 20px;
+  padding-right: 10px;
 }
 .charInformation {
   display: flex;
@@ -61,4 +92,60 @@ body {
   justify-content: center;
   align-items: center;
   padding-left: 30px;
+}
+.cardCharLoader{
+  display: absolute;
+  justify-content: center;
+  align-items: center;
+}
+
+
+@media (max-width: 480px) {
+  .cardChar {
+    padding: 15px 10px 10px 10px;
+  }
+  .cardCharHeader {
+    flex-direction: column;
+    padding-top: 15px;
+  }
+  .charAvatar {
+    height: 25rem;
+    width: 20rem;
+  }
+  .cardCharRandomIcon{
+    margin-top: 10px;
+  }
+  .cardCharSearchInput {
+    height: 35px;
+    width: 190px;
+  }
+  .cardCharButtonSeach {
+    height: 35px;
+    width: 80px;
+  }
+}
+
+::-webkit-input-placeholder {
+  /* Chrome/Opera/Safari */
+  font-size: 16px;
+  text-align: center;
+  padding-left: 10px;
+}
+::-moz-placeholder {
+  /* Firefox 19+ */
+  font-size: 16px;
+  text-align: center;
+  padding-left: 10px;
+}
+:-ms-input-placeholder {
+  /* IE 10+ */
+  font-size: 16px;
+  text-align: center;
+  padding-left: 10px;
+}
+:-moz-placeholder {
+  /* Firefox 18- */
+  font-size: 16px;
+  text-align: center;
+  padding-left: 10px;
 }
