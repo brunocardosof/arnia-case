@@ -79,8 +79,6 @@ function App() {
         return char.data[0];
       })
       .catch((error) => {
-        console.log(">>>>>>>>>>>>>>>>>>>>>error")
-        console.log(error)
         setLoading(false);
       })
   }
@@ -97,7 +95,6 @@ function App() {
         return char.data[0];
       })
       .catch((error) => {
-        console.log(error)
         setLoading(false);
       })
   }
@@ -115,8 +112,6 @@ function App() {
         }
       }
     }
-    console.log("array")
-    console.log(array)
     const arraySorte = array.sort(function (a, b) {
       return a.season - b.season;
     });
