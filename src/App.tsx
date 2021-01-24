@@ -2,7 +2,8 @@ import React from 'react';
 import { useEffect, useState } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import Loader from 'react-loader-spinner';
-
+import { FaRandom } from 'react-icons/fa'
+ 
 import './App.css';
 import { Character } from './interfaces/Character';
 import { api } from './services/api';
@@ -26,24 +27,24 @@ function App() {
   const [search, setSearch] = useState("");
 
   useEffect(() => {
-    const showRandomCharacter = async() => {
-      return await api(`character/random`)
-        .then((char) => {
-          if(!char.data) {
-            setCharacter(defaultCharacter);
-            return false;
-          }
-          setCharacter(char.data[0]);
-        })
-        .catch((error) => {
-          console.log(error)
-        })
-      }      
       showRandomCharacter();
   },[])
+
+  const showRandomCharacter = async() => {
+    return await api(`character/random`)
+      .then((char) => {
+        if(!char.data) {
+          setCharacter(defaultCharacter);
+          return false;
+        }
+        setCharacter(char.data[0]);
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+    }      
   
-  const showCharacterByName = async(event?: any) => {
-    
+  const showCharacterByName = async(event?: any) => {    
     if (event.key === 'Enter' || event === "Button") {
       return await api(`characters?name=${search}`)
         .then((char) => {
@@ -82,6 +83,7 @@ function App() {
         <div className="cardCharHeader">
           <img className="charAvatar" src={character.img} alt="Imagem do Personagem"/>
           <div className="charInformation">
+            <FaRandom className="cardCharRandomIcon" onClick={() => showRandomCharacter()}/>
             <p>Apelido: {character.nickname}</p>
             <p>Status: {character.status}</p>
           </div>

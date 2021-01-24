@@ -1,3 +1,6 @@
+:root {
+  --main-color: #004c00;
+}
 * {
   margin: 0;
   padding: 0;
@@ -11,49 +14,60 @@ body {
 
 .container {
   height: 100vh;
-  display:flex;
+  display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
 }
 
 .cardChar {
-  border: 2px solid #000;
+  border: 3px solid var(--main-color);
   padding: 15px 80px 80px 80px;
 }
-.cardCharSearch{
-  display:flex;
+.cardCharSearch {
+  display: flex;
   justify-content: center;
   align-items: center;
 }
-.cardCharSearchInput{
-  border-left: 3px solid #000;
-  border-top: 3px solid #000;
-  border-bottom: 3px solid #000;
+.cardCharSearchInput {
+  border-left: 3px solid var(--main-color);
+  border-top: 3px solid var(--main-color);
+  border-bottom: 3px solid var(--main-color);
   border-bottom-left-radius: 20px;
   border-top-left-radius: 20px;
   height: 35px;
   width: 300px;
   outline: none;
 }
-.cardCharButtonSeach{
-  border-right: 3px solid #000;
-  border-top: 3px solid #000;
-  border-bottom: 3px solid #000;
+.cardCharButtonSeach {
+  border-right: 3px solid var(--main-color);
+  border-top: 3px solid var(--main-color);
+  border-bottom: 3px solid var(--main-color);
   border-bottom-right-radius: 20px;
   border-top-right-radius: 20px;
   height: 35px;
   width: 100px;
   outline: none;
   cursor: pointer;
+  background-color: var(--main-color);
+  color: white;
+}
+.cardCharButtonSeach:hover{
+  transition: 150ms;
+  background-color:#00ff00;
 }
 .cardCharHeader {
-  display:flex;
+  display: flex;
   flex-direction: row;
   padding-top: 15px;
 }
 .charAvatar {
   height: 25rem;
+}
+.cardCharRandomIcon{
+  font-size: 26px;
+  margin-bottom: 20px;
+  cursor: pointer;
 }
 .charInformation {
   display: flex;
