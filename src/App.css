@@ -170,6 +170,9 @@ body {
   .cardEpisodeList {
     padding: 15px 0px 15px 0px;
   }
+  li:first-child {
+    margin-top: 60px;
+  }
 }
 
 .cardEpisodeList {
