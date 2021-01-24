@@ -1,9 +1,9 @@
 export interface Episode {
   id: number;
   title: string;
-  season: string;
-  episode: string;
+  season: number;
+  episode: number;
   air_date: string;
-  characters: string;
+  characters: string[];
   series: string;
 }
